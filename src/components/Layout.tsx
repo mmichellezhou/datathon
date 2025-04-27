@@ -12,14 +12,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-background">
       <header className="bg-white shadow-sm">
-        <div className="container py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-primary"></h1>
-        </div>
-      </header>
+    <div className="container py-4 flex items-center justify-between">
+      <h1 className="text-4xl font-extrabold text-purple-800">
+        PetPals
+      </h1>
+    </div>
+  </header>
       <main className="container py-6">{children}</main>
       <footer className="bg-white border-t border-border">
         <div className="container py-4 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Critter World
+          &copy; {new Date().getFullYear()} PetPals
         </div>
       </footer>
     </div>
