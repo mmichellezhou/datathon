@@ -59,7 +59,7 @@ const Pet: React.FC = () => {
       <CardContent className="space-y-4">
         <div className="pet-container min-h-[200px] relative">
           <div 
-            className={`text-7xl md:text-8xl mt-[15px] ${showAnimation ? 'animate-pet-grow' : 'animate-pet-bounce'}`}
+            className={`text-7xl md:text-8xl mt-[14px] ${showAnimation ? 'animate-pet-grow' : 'animate-pet-bounce'}`}
           >
             {petEmoji}
           </div>
