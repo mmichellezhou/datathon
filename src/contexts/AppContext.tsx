@@ -157,63 +157,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setLastSelectedDifficulty(task.difficulty);
 
-    // Calculate happiness boost based on task difficulty and time spent
-    let happinessBoost = 0;
-    
-    switch(task.difficulty) {
-      case 'easy':
-        happinessBoost = 5;
-        break;
-      case 'medium':
-        happinessBoost = 10;
-        break;
-      case 'hard':
-        happinessBoost = 15;
-        break;
-    }
-    
-    // Add bonus for time spent (capped at 30 minutes for bonus)
-    const timeBonus = Math.min(Math.floor(task.timeSpent / 10), 3);
-    happinessBoost += timeBonus;
+    // Calculate happiness and growth based on task difficulty and time spent
+    let base = Math.min(Math.max(task.timeSpent/15, 1), 12); // 15 minutes x 12 = 3 hours max
+    let boost = 0;
 
-    // Calculate growth boost based on difficulty, time spent, and current happiness
-    let growthBoost = 0;
-    
-    // Base growth from difficulty (very small base values)
     switch(task.difficulty) {
       case 'easy':
-        growthBoost = 0.1;
+        boost = 0.75;
         break;
       case 'medium':
-        growthBoost = 0.2;
+        boost = 1;
         break;
       case 'hard':
-        growthBoost = 0.3;
+        boost = 1.25;
         break;
     }
     
-    // Time spent factor (capped at 2 hours)
-    const timeFactor = Math.min(task.timeSpent / 15, 12); // 12 * 15 minutes = 3 hours
-    const timeGrowth = timeFactor * 0.4; // Each 15-minute block adds 0.4 growth
-    
-    // Difficulty multiplier
-    const difficultyMultiplier = {
-      'easy': 1,
-      'medium': 1.5,
-      'hard': 2
-    }[task.difficulty];
-    
-    // Happiness factor (0.5x to 1.5x)
-    const happinessFactor = 0.5 + (currentPet.happiness / 200);
-    
-    // Combine all factors with more weight on time
-    growthBoost = (growthBoost + timeGrowth) * difficultyMultiplier * happinessFactor;
-    
-    // Cap the maximum growth per task
-    growthBoost = Math.min(growthBoost, 2.0);
-    
-    // Round to one decimal place
-    growthBoost = Math.round(growthBoost * 10) / 10;
+    let happinessBoost = Math.ceil(5 + base * boost);
+    let growthBoost = Math.ceil(base * boost / 3);
 
     // Update pet happiness and growth
     setCurrentPet((prevPet) => {
