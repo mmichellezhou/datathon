@@ -1,8 +1,39 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React from "react";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import Layout from "@/components/Layout";
+import Pet from "@/components/Pet";
+import TaskForm from "@/components/TaskForm";
+import TaskList from "@/components/TaskList";
+import PetGallery from "@/components/PetGallery";
+
+const Index: React.FC = () => {
   return (
-      <h1>Hello World</h1>
+    <Layout>
+      <Tabs defaultValue="tasks">
+        <TabsContent value="tasks" className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex flex-col space-y-8">
+              <Pet />
+            </div>
+            <div className="space-y-8">
+              <TaskForm />
+            </div>
+          </div>
+          <TaskList />
+        </TabsContent>
+        
+        <TabsContent value="history">
+          <div className="max-w-4xl mx-auto">
+            <TaskList />
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="gallery">
+          <PetGallery />
+        </TabsContent>
+      </Tabs>
+    </Layout>
   );
 };
 
