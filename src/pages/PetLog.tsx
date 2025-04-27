@@ -7,7 +7,7 @@ import TaskForm from "@/components/TaskForm";
 import TaskList from "@/components/TaskList";
 import PetGallery from "@/components/PetGallery";
 
-const Index: React.FC = () => {
+const PetLog: React.FC = () => {
   return (
     <Layout>
       <Tabs defaultValue="tasks">
@@ -23,12 +23,6 @@ const Index: React.FC = () => {
           <TaskList />
         </TabsContent>
         
-        <TabsContent value="history">
-          <div className="max-w-4xl mx-auto">
-            <TaskList />
-          </div>
-        </TabsContent>
-        
         <TabsContent value="gallery">
           <PetGallery />
         </TabsContent>
@@ -37,4 +31,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default PetLog;

@@ -2,6 +2,7 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppProvider } from "@/contexts/AppContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-background">
       <header className="bg-white shadow-sm">
         <div className="container py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-primary">Critter World</h1>
+          <h1 className="text-xl font-bold text-primary"></h1>
         </div>
       </header>
       <main className="container py-6">{children}</main>
@@ -26,13 +27,26 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 };
 
 const AppLayout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Map path to tab value
+  const getTabValue = () => {
+    if (location.pathname.startsWith("/gallery")) return "gallery";
+    return "tasks"; // default
+  };
+
+  const handleTabChange = (value: string) => {
+    if (value === "tasks") navigate("/tasks");
+    if (value === "gallery") navigate("/gallery");
+  };
+
   return (
     <AppProvider>
       <Layout>
-        <Tabs defaultValue="tasks" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+        <Tabs value={getTabValue()} onValueChange={handleTabChange}>
+          <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="tasks">Tasks & Pet</TabsTrigger>
-            <TabsTrigger value="history">Task History</TabsTrigger>
             <TabsTrigger value="gallery">Pet Gallery</TabsTrigger>
           </TabsList>
           {children}

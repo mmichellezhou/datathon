@@ -1,7 +1,7 @@
 
-export type PetType = 'cat' | 'dog' | 'rabbit' | 'hamster' | 'bird';
+export type PetType = 'cat' | 'dog' | 'rabbit' | 'hamster' | 'bird' | 'rock';
 
-export const PET_TYPES: PetType[] = ['cat', 'dog', 'rabbit', 'hamster', 'bird'];
+export const PET_TYPES: PetType[] = ['cat', 'dog', 'rabbit', 'hamster', 'bird', 'rock'];
 
 // Pet visuals based on growth stage
 export const PET_STAGES = {
@@ -57,29 +57,34 @@ export const getPetEmoji = (type: PetType, stage: string): string => {
   // Basic emoji representations for different pets and growth stages
   const petEmojis: Record<PetType, Record<string, string>> = {
     cat: {
-      baby: '🐱',
+      baby: '🥚',
       teen: '🐱',
-      adult: '😺'
+      adult: '🐈'
     },
     dog: {
-      baby: '🐶',
+      baby: '🥚',
       teen: '🐶',
       adult: '🐕'
     },
     rabbit: {
-      baby: '🐰',
+      baby: '🥚',
       teen: '🐰',
       adult: '🐇'
     },
     hamster: {
-      baby: '🐹',
+      baby: '🥚',
       teen: '🐹',
-      adult: '🐹'
+      adult: '🐁'
     },
     bird: {
-      baby: '🐤',
-      teen: '🐦',
-      adult: '🦜'
+      baby: '🥚',
+      teen: '🐤',
+      adult: '🐦'
+    },
+    rock: {
+      baby: '🥚',
+      teen: '🪨',
+      adult: '🌋'
     }
   };
 
