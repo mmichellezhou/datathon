@@ -112,6 +112,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Error parsing saved last difficulty:", e);
       }
     }
+
+    // Decay happiness with time
+    const decayInterval = setInterval(() => {
+      setCurrentPet(prevPet => {
+        const newHappiness = Math.max(0, prevPet.happiness - 1);
+        return {
+          ...prevPet,
+          happiness: newHappiness
+        };
+      });
+    }, 900000); // 15 minutes
+
+    return () => clearInterval(decayInterval);
   }, []);
 
   // Save data to localStorage whenever it changes
@@ -180,8 +193,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     }
     
     // Time spent factor (capped at 2 hours)
-    const timeFactor = Math.min(task.timeSpent / 15, 8); // 8 * 15 minutes = 2 hours
-    const timeGrowth = timeFactor * 0.2; // Each 15-minute block adds 0.2 growth
+    const timeFactor = Math.min(task.timeSpent / 15, 12); // 12 * 15 minutes = 3 hours
+    const timeGrowth = timeFactor * 0.4; // Each 15-minute block adds 0.4 growth
     
     // Difficulty multiplier
     const difficultyMultiplier = {
@@ -193,11 +206,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     // Happiness factor (0.5x to 1.5x)
     const happinessFactor = 0.5 + (currentPet.happiness / 200);
     
-    // Combine all factors
+    // Combine all factors with more weight on time
     growthBoost = (growthBoost + timeGrowth) * difficultyMultiplier * happinessFactor;
     
     // Cap the maximum growth per task
-    growthBoost = Math.min(growthBoost, 1.5);
+    growthBoost = Math.min(growthBoost, 2.0);
     
     // Round to one decimal place
     growthBoost = Math.round(growthBoost * 10) / 10;

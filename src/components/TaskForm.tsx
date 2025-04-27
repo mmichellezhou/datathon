@@ -62,12 +62,12 @@ const TaskForm: React.FC = () => {
       timeSpent: Number(data.timeSpent),
     });
     
-    // Reset the form but keep the same difficulty
+    // Reset the form but keep the same values
     form.reset({
-      title: "",
+      title: data.title,
       description: "",
       difficulty: data.difficulty,
-      timeSpent: 15,
+      timeSpent: data.timeSpent,
     });
     
     setIsSubmitting(false);
