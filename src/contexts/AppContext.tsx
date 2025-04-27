@@ -179,7 +179,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     // Update pet happiness and growth
     setCurrentPet((prevPet) => {
       const newHappiness = Math.min(prevPet.happiness + happinessBoost, 100);
-      const newGrowth = Math.min(prevPet.growth + growthBoost, 100);
+
+      let extraGrowthBoost = 0;
+      if (prevPet.happiness >= 90) {
+        extraGrowthBoost = 1;
+      }
+
+      const newGrowth = Math.min(prevPet.growth + growthBoost + extraGrowthBoost, 100);
       
       // Show toast for happiness increase
       toast({

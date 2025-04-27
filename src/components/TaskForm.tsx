@@ -44,7 +44,7 @@ const TaskForm: React.FC = () => {
     defaultValues: {
       title: "",
       description: "",
-      difficulty: lastSelectedDifficulty || "easy",
+      difficulty: "easy",
       timeSpent: 15,
     },
   });
@@ -65,7 +65,7 @@ const TaskForm: React.FC = () => {
     // Reset the form but keep the same values
     form.reset({
       title: data.title,
-      description: "",
+      description: data.description,
       difficulty: data.difficulty,
       timeSpent: data.timeSpent,
     });
